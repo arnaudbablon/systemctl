@@ -2,7 +2,6 @@
 namespace SystemCtl\Container;
 
 use SystemCtl\Action\ActionInterface;
-use Psr\Container\ContainerInterface;
 
 class ActionContainer implements ContainerInterface
 {
@@ -25,23 +24,17 @@ class ActionContainer implements ContainerInterface
         return false;
     }
 
-
     /**
      * @param string $id
-     * @return ActionInterface|mixed
-     * @throws ContainerException
+     * @return ActionInterface
      * @throws ContainerNotFoundException
      */
     public function get($id)
     {
         foreach ($this->actions as $action) {
             if ($this->has($id)) {
-                try {
-                    if ($action->support($id)) {
-                        return $action;
-                    }
-                } catch (\Exception $e) {
-                    throw new ContainerException(sprintf('Error while retrieving the entry %s', $id));
+                if ($action->support($id)) {
+                    return $action;
                 }
             }
         }

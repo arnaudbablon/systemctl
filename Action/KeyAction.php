@@ -1,6 +1,9 @@
 <?php
 namespace SystemCtl\Action;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 class KeyAction implements ActionInterface
 {
     /** string */
@@ -8,7 +11,11 @@ class KeyAction implements ActionInterface
 
     public function execute(): void
     {
-        exec("xdotool key $this->key");
+        $process = new Process(["xdotool", "key", $this->key]);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
     }
 
     public function support(string $className): bool

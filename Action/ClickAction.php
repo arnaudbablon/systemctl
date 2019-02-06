@@ -1,6 +1,9 @@
 <?php
 namespace SystemCtl\Action;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 class ClickAction implements ActionInterface
 {
     /** @var int */
@@ -12,11 +15,23 @@ class ClickAction implements ActionInterface
     /** @var bool */
     private $left;
 
+
+    /**
+     * @throws ProcessFailedException
+     */
     public function execute(): void
     {
-        exec("xdotool mousemove $this->x $this->y");
+        $process = new Process(['xdotool', 'mousemove', "$this->x", "$this->y"]);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
         usleep(300000);
-        exec('xdotool click $this->left');
+        $process = new Process(['xdotool', 'click', "$this->left"]);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
     }
 
     public function support(string $className): bool

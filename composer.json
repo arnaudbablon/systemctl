@@ -1,6 +1,6 @@
 {
     "name": "arnaudbablon/systemctl",
-    "description": "Provide abstraction to interact with system (screenshot, copy, past, click)",
+    "description": "Provide a PHP abstraction to interact with system (screenshot, copy, past, click)",
     "license": "MIT",
     "authors": [
         {

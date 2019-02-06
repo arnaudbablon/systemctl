@@ -1,6 +1,9 @@
 <?php
 namespace SystemCtl\Action;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 class ScrollAction implements ActionInterface
 {
     /** @var int */
@@ -11,9 +14,20 @@ class ScrollAction implements ActionInterface
 
     public function execute(): void
     {
+        $processMove = new Process(['xdotool', 'mousemove', "$this->x", "$this->y"]);
+        $processClick = new Process(['xdotool', 'click', '1']);
+
         for ($i=0; $i<15; $i++) {
-            exec("xdotool mousemove $this->x $this->y");
-            exec("xte 'mouseclick 1'");
+            $processMove->run();
+            if (!$processMove->isSuccessful()) {
+                throw new ProcessFailedException($processMove);
+            }
+
+            $processClick->run();
+            if (!$processClick->isSuccessful()) {
+                throw new ProcessFailedException($processClick);
+            }
+
             usleep(500);
         }
     }
