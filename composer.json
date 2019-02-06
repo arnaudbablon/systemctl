@@ -1,0 +1,13 @@
+{
+    "name": "arnaudbablon/systemctl",
+    "description": "Provide abstraction to interact with system (screenshot, copy, past, click)",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nono Du 78",
+            "email": "ab.arnaud.bablon@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
