@@ -1,7 +1,9 @@
 <?php
 namespace SystemCtl\Container;
 
-class ContainerNotFoundException extends \Exception
+use Psr\Container\NotFoundExceptionInterface;
+
+class ContainerNotFoundException extends \Exception implements NotFoundExceptionInterface
 {
 
 }

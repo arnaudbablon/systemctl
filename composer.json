@@ -2,12 +2,16 @@
     "name": "arnaudbablon/systemctl",
     "description": "Provide a PHP abstraction to interact with system (screenshot, copy, past, click)",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Nono Du 78",
             "email": "ab.arnaud.bablon@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": "^7.1",
+        "symfony/process": "4.2.*"
+    },
+    "minimum-stability": "dev"
 }

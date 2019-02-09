@@ -9,6 +9,9 @@ class ScreenShotAction implements ActionInterface
     /** @var string */
     private $path;
 
+    /**
+     * @throws ProcessFailedException
+     */
     public function execute(): void
     {
         $process = new Process([]);
@@ -20,6 +23,10 @@ class ScreenShotAction implements ActionInterface
         }
     }
 
+    /**
+     * @param string $className
+     * @return bool
+     */
     public function support(string $className): bool
     {
         return $className === self::class;

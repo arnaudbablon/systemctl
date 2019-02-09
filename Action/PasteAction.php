@@ -6,6 +6,9 @@ use Symfony\Component\Process\Process;
 
 class PasteAction implements ActionInterface
 {
+    /**
+     * @throws ProcessFailedException
+     */
     public function execute(): void
     {
         $process = new Process(["xdotool", "key", "ctrl+v"]);
@@ -15,6 +18,10 @@ class PasteAction implements ActionInterface
         }
     }
 
+    /**
+     * @param string $className
+     * @return bool
+     */
     public function support(string $className): bool
     {
         return $className === self::class;

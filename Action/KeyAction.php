@@ -9,6 +9,9 @@ class KeyAction implements ActionInterface
     /** string */
     private $key;
 
+    /**
+     * @throws ProcessFailedException
+     */
     public function execute(): void
     {
         $process = new Process(["xdotool", "key", $this->key]);
@@ -18,6 +21,10 @@ class KeyAction implements ActionInterface
         }
     }
 
+    /**
+     * @param string $className
+     * @return bool
+     */
     public function support(string $className): bool
     {
         return $className === self::class;

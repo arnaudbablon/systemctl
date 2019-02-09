@@ -27,13 +27,17 @@ class ClickAction implements ActionInterface
             throw new ProcessFailedException($process);
         }
         usleep(300000);
-        $process = new Process(['xdotool', 'click', "$this->left"]);
+        $process = new Process(['xdotool', 'click', $this->left]);
         $process->run();
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
     }
 
+    /**
+     * @param string $className
+     * @return bool
+     */
     public function support(string $className): bool
     {
         return $className === self::class;

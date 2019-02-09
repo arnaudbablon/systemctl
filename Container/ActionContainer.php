@@ -1,6 +1,7 @@
 <?php
 namespace SystemCtl\Container;
 
+use Psr\Container\ContainerInterface;
 use SystemCtl\Action\ActionInterface;
 
 class ActionContainer implements ContainerInterface
@@ -13,6 +14,9 @@ class ActionContainer implements ContainerInterface
         $this->actions = $actions;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function has($id)
     {
         foreach ($this->actions as $action) {
@@ -25,9 +29,7 @@ class ActionContainer implements ContainerInterface
     }
 
     /**
-     * @param string $id
-     * @return ActionInterface
-     * @throws ContainerNotFoundException
+     * {@inheritdoc}
      */
     public function get($id)
     {

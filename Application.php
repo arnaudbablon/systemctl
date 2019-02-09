@@ -1,6 +1,7 @@
 <?php
 namespace SystemCtl;
 
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use SystemCtl\Action\ActionInterface;
 use SystemCtl\Action\ClickAction;
@@ -11,20 +12,19 @@ use SystemCtl\Action\PasteAction;
 use SystemCtl\Action\ScreenShotAction;
 use SystemCtl\Action\ScrollAction;
 use SystemCtl\Container\ActionContainer;
-use SystemCtl\Container\ContainerInterface;
 
 class Application
 {
-    /** @var ContainerInterface */
-    protected $containerAction;
+    /** @var ActionContainer */
+    protected $container;
 
     /**
      * Application constructor.
-     * @param ContainerInterface $containerAction
+     * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $containerAction)
+    public function __construct(ContainerInterface $container)
     {
-        $this->containerAction = $containerAction;
+        $this->container = $container;
     }
 
     /**
@@ -35,16 +35,17 @@ class Application
         try {
             $action->execute();
         } catch (ProcessFailedException $e) {
-            die($e->getMessage());
+            trigger_error($e->getMessage());
         }
     }
+
 
     /**
      * @param string $path
      */
     public function screenShot(string $path): void
     {
-        $action = $this->containerAction->get(ScreenShotAction::class);
+        $action = $this->container->get(ScreenShotAction::class);
         $action->setPath($path);
         $this->execute($action);
     }
@@ -56,7 +57,7 @@ class Application
      */
     public function click(int $x, int $y, $left = true): void
     {
-        $action = $this->containerAction->get(ClickAction::class);
+        $action = $this->container->get(ClickAction::class);
         $action->setX($x);
         $action->setY($y);
         $action->setLeft($left);
@@ -69,7 +70,7 @@ class Application
      */
     public function scroll(int $x, int $y): void
     {
-        $action = $this->containerAction->get(ScrollAction::class);
+        $action = $this->container->get(ScrollAction::class);
         $action->setX($x);
         $action->setY($y);
         $this->execute($action);
@@ -80,7 +81,7 @@ class Application
      */
     public function copy(string $text): void
     {
-        $action = $this->containerAction->get(CopyAction::class);
+        $action = $this->container->get(CopyAction::class);
         $this->execute($action);
     }
 
@@ -89,14 +90,14 @@ class Application
      */
     public function clipboard(string $text): void
     {
-        $action = $this->containerAction->get(ClipboardAction::class);
+        $action = $this->container->get(ClipboardAction::class);
         $action->setText($text);
         $this->execute($action);
     }
 
     public function paste(): void
     {
-        $action = $this->containerAction->get(PasteAction::class);
+        $action = $this->container->get(PasteAction::class);
         $this->execute($action);
     }
 
@@ -105,7 +106,7 @@ class Application
      */
     public function key(string $key): void
     {
-        $action = $this->containerAction->get(KeyAction::class);
+        $action = $this->container->get(KeyAction::class);
         $action->setKey($key);
         $this->execute($action);
     }

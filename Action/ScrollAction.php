@@ -12,6 +12,9 @@ class ScrollAction implements ActionInterface
     /** @var int */
     private $y;
 
+    /**
+     * @throws ProcessFailedException
+     */
     public function execute(): void
     {
         $processMove = new Process(['xdotool', 'mousemove', "$this->x", "$this->y"]);
@@ -32,6 +35,10 @@ class ScrollAction implements ActionInterface
         }
     }
 
+    /**
+     * @param string $className
+     * @return bool
+     */
     public function support(string $className): bool
     {
         return $className === self::class;

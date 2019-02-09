@@ -9,6 +9,9 @@ class ClipboardAction implements ActionInterface
     /** string */
     private $text;
 
+    /**
+     * @throws ProcessFailedException
+     */
     public function execute(): void
     {
         $process = new Process([]);
@@ -19,6 +22,10 @@ class ClipboardAction implements ActionInterface
         }
     }
 
+    /**
+     * @param string $className
+     * @return bool
+     */
     public function support(string $className): bool
     {
         return $className === self::class;
