@@ -13,5 +13,8 @@
         "php": "^7.1",
         "symfony/process": "4.2.*"
     },
+    "autoload": {
+        "psr-4": { "SystemCtl\\": "" }
+    },
     "minimum-stability": "dev"
 }
