@@ -11,7 +11,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/process": "4.2.*"
+        "symfony/process": "4.2.*",
+        "psr/container": "^1.0"
     },
     "autoload": {
         "psr-4": { "SystemCtl\\": "" }

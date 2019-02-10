@@ -1,10 +1,11 @@
 services:
     SystemCtl\:
-        public: true
-        resource: '../../SystemCtl'
+        autowire: true
+        resource: '../../'
 
     SystemCtl\Action\:
-        resource: '../../SystemCtl/Action'
+        public: true
+        resource: '../../Action'
         tags: ['action']
 
     SystemCtl\Container\ActionContainer:
