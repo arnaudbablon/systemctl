@@ -1,10 +1,11 @@
 # systemctl
-PHP wrapper for system basic action (tested on debian 9 / php 7.2)
+PHP wrapper that allow to do basic system action like screenshot, click ... 
+(tested on debian 9 / php 7.2)
 
 # Requirements
 - xdotool
 - xclip
-- shutter
+- shutter 
 
 # How to install
 ```bash
@@ -20,11 +21,8 @@ PHP wrapper for system basic action (tested on debian 9 / php 7.2)
 - key press
 - screenshot
 - scroll
-
-## Futur actions (work in progress)
-- open program
 - kill program
-- ...
+- run program
 
 > I develop this library for personal purpose and will update actions according to my needs.
 
@@ -38,7 +36,9 @@ PHP wrapper for system basic action (tested on debian 9 / php 7.2)
         new ClipboardAction(),
         new ScrollAction(),
         new ScreenShotAction(),
-        new KeyAction()
+        new KeyAction(),
+        new KillallAction(),
+        new RunAction()
     ];
     $container = new ActionContainer($actions);
     $application = new Application($container);
@@ -49,9 +49,12 @@ PHP wrapper for system basic action (tested on debian 9 / php 7.2)
     application->paste(); 
     application->screenshot('/path/name.png');
     application->key('KP_Enter');
+    $application->run('google-chrome > /dev/null 2>&1 &');
+    $application->sleep(4);
+    $application->killall('chrome');
 ```
 
-## Integration with symfony
+## Integration with symfony (optional)
 
 ```yaml
 #config/services.yaml
@@ -60,4 +63,4 @@ imports:
     - { resource: '../vendor/arnaudbablon/systemctl/Resource/config/services.yaml' }
     
 ```
-You can now normaly inject Application class without instanciate any Actions.
+You can now normaly inject Application class without instanciate any actions.

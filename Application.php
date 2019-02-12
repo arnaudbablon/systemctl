@@ -8,7 +8,9 @@ use SystemCtl\Action\ClickAction;
 use SystemCtl\Action\ClipboardAction;
 use SystemCtl\Action\CopyAction;
 use SystemCtl\Action\KeyAction;
+use SystemCtl\Action\KillallAction;
 use SystemCtl\Action\PasteAction;
+use SystemCtl\Action\RunAction;
 use SystemCtl\Action\ScreenShotAction;
 use SystemCtl\Action\ScrollAction;
 use SystemCtl\Container\ActionContainer;
@@ -38,7 +40,6 @@ class Application
             trigger_error($e->getMessage());
         }
     }
-
 
     /**
      * @param string $path
@@ -108,6 +109,27 @@ class Application
     {
         $action = $this->container->get(KeyAction::class);
         $action->setKey($key);
+        $this->execute($action);
+    }
+
+    /**
+     * @param string $command
+     */
+    public function run(string $command): void
+    {
+        $action = $this->container->get(RunAction::class);
+        $action->setCommand($command);
+        $this->execute($action);
+    }
+
+    /**
+     * @param string $process
+     * @example $this->killall('google-chrome');
+     */
+    public function killall(string $process): void
+    {
+        $action = $this->container->get(KillallAction::class);
+        $action->setProcess($process);
         $this->execute($action);
     }
 

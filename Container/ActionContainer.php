@@ -34,10 +34,8 @@ class ActionContainer implements ContainerInterface
     public function get($id)
     {
         foreach ($this->actions as $action) {
-            if ($this->has($id)) {
-                if ($action->support($id)) {
-                    return $action;
-                }
+            if ($action->support($id)) {
+                return $action;
             }
         }
 
