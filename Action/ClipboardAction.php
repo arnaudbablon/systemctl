@@ -12,7 +12,7 @@ class ClipboardAction implements ActionInterface
     /**
      * @throws ProcessFailedException
      */
-    public function execute(): void
+    public function execute()
     {
         $process = new Process([]);
         $process->setCommandLine("echo $this->text | xclip -selection c > /dev/null 2>&1");

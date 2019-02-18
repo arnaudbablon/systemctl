@@ -9,7 +9,7 @@ class CopyAction implements ActionInterface
     /**
      * @throws ProcessFailedException
      */
-    public function execute(): void
+    public function execute()
     {
         $process = new Process(["xdotool", "key", "ctrl+c"]);
         $process->run();

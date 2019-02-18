@@ -6,6 +6,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use SystemCtl\Action\ActionInterface;
 use SystemCtl\Action\ClickAction;
 use SystemCtl\Action\ClipboardAction;
+use SystemCtl\Action\ClipboardGetAction;
 use SystemCtl\Action\CopyAction;
 use SystemCtl\Action\KeyAction;
 use SystemCtl\Action\KillallAction;
@@ -32,10 +33,10 @@ class Application
     /**
      * @param ActionInterface $action
      */
-    public function execute(ActionInterface $action): void
+    public function execute(ActionInterface $action)
     {
         try {
-            $action->execute();
+            return $action->execute();
         } catch (ProcessFailedException $e) {
             trigger_error($e->getMessage());
         }
@@ -131,6 +132,12 @@ class Application
         $action = $this->container->get(KillallAction::class);
         $action->setProcess($process);
         $this->execute($action);
+    }
+
+    public function clipboardGet(): string
+    {
+        $action = $this->container->get(ClipboardGetAction::class);
+        return $this->execute($action);
     }
 
     /**

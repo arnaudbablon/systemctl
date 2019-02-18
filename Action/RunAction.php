@@ -12,7 +12,7 @@ class RunAction implements ActionInterface
     /**
      * @throws ProcessFailedException
      */
-    public function execute(): void
+    public function execute()
     {
 
         $process = new Process([]);

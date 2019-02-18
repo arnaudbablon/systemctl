@@ -12,7 +12,7 @@ class KeyAction implements ActionInterface
     /**
      * @throws ProcessFailedException
      */
-    public function execute(): void
+    public function execute()
     {
         $process = new Process(["xdotool", "key", $this->key]);
         $process->run();

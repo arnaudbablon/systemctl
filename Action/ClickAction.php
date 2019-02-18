@@ -19,7 +19,7 @@ class ClickAction implements ActionInterface
     /**
      * @throws ProcessFailedException
      */
-    public function execute(): void
+    public function execute()
     {
         $process = new Process(['xdotool', 'mousemove', "$this->x", "$this->y"]);
         $process->run();

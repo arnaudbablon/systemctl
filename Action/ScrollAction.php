@@ -15,7 +15,7 @@ class ScrollAction implements ActionInterface
     /**
      * @throws ProcessFailedException
      */
-    public function execute(): void
+    public function execute()
     {
         $processMove = new Process(['xdotool', 'mousemove', "$this->x", "$this->y"]);
         $processClick = new Process(['xdotool', 'click', '1']);

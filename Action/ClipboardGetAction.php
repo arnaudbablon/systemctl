@@ -4,21 +4,22 @@ namespace SystemCtl\Action;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-class KillallAction implements ActionInterface
+class ClipboardGetAction implements ActionInterface
 {
-    /** @var string */
-    private $process;
-
     /**
      * @throws ProcessFailedException
      */
     public function execute()
     {
-        $process = new Process(["killall",$this->process]);
+        $process = new Process([]);
+        $process->setCommandLine("xclip -o");
         $process->run();
+
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
+
+        return $process->getOutput();
     }
 
     /**
@@ -31,10 +32,10 @@ class KillallAction implements ActionInterface
     }
 
     /**
-     * @param string $command
+     * @param mixed $text
      */
-    public function setProcess(string $process): void
+    public function setText($text): void
     {
-        $this->process = $process;
+        $this->text = $text;
     }
 }

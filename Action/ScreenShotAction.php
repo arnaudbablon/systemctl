@@ -12,7 +12,7 @@ class ScreenShotAction implements ActionInterface
     /**
      * @throws ProcessFailedException
      */
-    public function execute(): void
+    public function execute()
     {
         $process = new Process([]);
         $process->setCommandLine("shutter -f -o $this->path -e -n");
